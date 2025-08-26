@@ -146,6 +146,8 @@ fun NewsItem(
     onClick: () -> Unit,
     onBookmarkClick: (News) -> Unit
 ) {
+    var isBookmarked by remember { mutableStateOf(news.isBookmarked) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -195,10 +197,11 @@ fun NewsItem(
 
             IconButton(onClick = {
                 onBookmarkClick(news)
+                isBookmarked = news.isBookmarked
             }) {
                 Icon(
-                    painter = painterResource(id = if (news.isBookmarked) R.drawable.ic_bookmarked else R.drawable.ic_bookmark),
-                    contentDescription = if (news.isBookmarked) "Remove Bookmark" else "Add Bookmark"
+                    painter = painterResource(id = if (isBookmarked) R.drawable.ic_bookmarked else R.drawable.ic_bookmark),
+                    contentDescription = if (isBookmarked) "Remove Bookmark" else "Add Bookmark"
                 )
             }
         }
